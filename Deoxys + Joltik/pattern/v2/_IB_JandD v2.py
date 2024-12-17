@@ -41,10 +41,10 @@ class IB_DandJ:
                    [14,  9,  8, 15,  6,  1,  0,  7, 14,  9,  8, 15,  6,  1,  0,  7],
                    [15,  6,  1,  0,  7, 14,  9,  8, 15,  6,  1,  0,  7, 14,  9,  8]]
     if self.cell_size == 4:
-      cipher_name = 'JoltikBC'
+      self.cipher_name = 'v2JoltikBC'
     else:
-      cipher_name = 'DeoxysBC'
-    self.name = './pattern/' +  cipher_name + str(self.key_size) + '_' + str(self.round_Eb + self.round_Eu + self.round_Em + self.round_El + self.round_Ef) + 'r'
+      self.cipher_name = 'v2DeoxysBC'
+    self.name = './pattern/v2/' +  self.cipher_name + str(self.key_size) + '_' + str(self.round_Eb + self.round_Eu + self.round_Em + self.round_El + self.round_Ef) + 'r'
     self.model = gp.Model(self.name)
 
   ''' 
@@ -691,7 +691,7 @@ class IB_DandJ:
     -----------------------------------------------------------------------------------------------
     ''' 
     self.model.addConstr(sum((uDX[end_round_u,i] - udx[end_round_u,i]) * 
-                             (lDY[start_round_l-1,i] - ldy[start_round_l-1,i]) for i in range(16)) >= 1)
+                             (lDY[start_round_l-1,i] - ldy[start_round_l-1,i]) for i in range(16)) >= 1, name = 'ContradictoryPoint')
     '''
     -----------------------------------------------------------------------------------------------
     FIVE: Complexities
@@ -736,14 +736,10 @@ class IB_DandJ:
 
     Dc  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'Dc')
     Qc  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'Qc')
+    Mc  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'Mc')
     T0  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T0')
     T1  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T1')
-
-
     T2  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T2')
-
-
-
     T31 = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T31')
     T32 = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T32')
     T4  = self.model.addVar(lb = 0, vtype = GRB.CONTINUOUS, name = 'T4')
@@ -794,6 +790,16 @@ class IB_DandJ:
     # Quartet
     self.model.addConstr(Qc == 2 * (cb + cf) + self.tz)
 
+    # Memory
+    if self.pgP == True:
+      self.model.addConstr(Mc >= Dc + 1 + rb - cbp)
+    else:
+      self.model.addConstr(Mc >= 2 * Dc + 1 + rf - cfp - self.block_size)
+    self.model.addConstr(Mc >= Dc + 2)
+    self.model.addConstr(Mc >= T2 - (mbp + mfp))
+    self.model.addConstr(Mc >= Qc - 2*cbp - 2*cfp)
+    self.model.addConstr(Mc >= mb + mf)
+
     '''
     Complexity for related key
     '''
@@ -824,8 +830,11 @@ class IB_DandJ:
 
     ''' Objective function'''
     self.model.ModelSense = GRB.MINIMIZE
-    self.model.setObjectiveN(Tc, index=0, priority=2, name='Tc')
-    self.model.setObjectiveN(T32, index=1, priority=1, name='T32')
+    self.model.setObjectiveN(Tc, index=0, priority=4, name='Min_Tc')
+    self.model.setObjectiveN(T32, index=1, priority=3, name='Min_T32')
+    self.model.setObjectiveN(Dc, index=2, priority=2, name='Min_Dc')
+    self.model.setObjectiveN(Mc, index=3, priority=1, name='Min_Mc')
+
 
     '''
     ===================================================
@@ -833,6 +842,7 @@ class IB_DandJ:
     ===================================================
     '''
     self.model.write(self.name + '.lp')
+    # self.model.setParam('OutputFlag', 0)
     self.model.optimize()
 
     if self.model.Status == GRB.INFEASIBLE:
@@ -841,7 +851,7 @@ class IB_DandJ:
         self.model.write(self.name + '.ilp')
     self.model.write(self.name + '.sol')
     
-    print('>>>>> Solution <<<<<')
+    print('>>>>> {} Solution <<<<<'.format(self.cipher_name + str(self.key_size)))
     print('='*90)
     print('|| Choosen Plaintext | ' if self.pgP else('Choosen Chiphertext | '), end='')
     print('PC = {:5} ||'.format(sum(udw[-1,i].x + leqdz[end_round_l-1, i].x for i in range(16))))
@@ -851,7 +861,7 @@ class IB_DandJ:
     print("|| rb = {:5} | cb = {:5} | mb = {:5} | mb\' = {:5} | cb\' = {:5} ||".format(rb.x, cb.x, mb.x, mbp.x, cbp.x))
     print("|| rf = {:5} | cf = {:5} | mf = {:5} | mf\' = {:5} | cf\' = {:5} ||".format(rf.x, cf.x, mf.x, mfp.x, cfp.x))
     print('-'*90)
-    print('|| D = {:5} | Dc  = {:5} | Q  = {:5} | Qc  = {:5} ||'.format(Dc.x, Dc.x+2, Qc.x, Qc.x-2*cbp.x-2*cfp.x))
+    print('|| Dc = {:5} | Qc = {:5} | Mc = {:5} ||'.format(Dc.x + 2, Qc.x, Mc.x))
     print('-'*90)
     print('|| T0 = {:5} | T1 = {:5} | T2 = {:5} | T31 = {:5} | T32 = {:5} | T4 = {:5} ||'.format(T0.x, T1.x, T2.x, T31.x, T32.x, T4.x))
     print('-'*90)
@@ -865,7 +875,7 @@ class IB_DandJ:
   =====================
   '''
   def x_to_z(self,x):
-    # ln2 = 0.69
+    # ln2 = 0.69...
     return round(math.log2(0.7 * x), 1)
   
 
@@ -873,37 +883,36 @@ if __name__ == '__main__':
     
     # IB_Deoxys(key_size, round_Eb, round_Eu, round_Em, round_El, round_Ef, setX, pgP)
 
-    ''' 10-r Deoxys-BC-256 '''
-    DeoxysBC256_10r = IB_DandJ(256, 1, 3, 1, 3, 2, 106, True)
-    DeoxysBC256_10r.ib_model()
+    # ''' 10-r Deoxys-BC-256 '''
+    # DeoxysBC256_10r = IB_DandJ(256, 1, 3, 1, 3, 2, 106, True)
+    # DeoxysBC256_10r.ib_model()
 
     # ''' 11-r Deoxys-BC-256 '''
     # DeoxysBC256_11r = IB_DandJ(256, 2, 3, 1, 3, 2, 16, False) # adaptive adjustment to x=20 in this attack
     # DeoxysBC256_11r.ib_model()
 
-    # ''' 13-r Deoxys-BC-384 '''
-    # DeoxysBC384_13r = IB_DandJ(384, 2, 4, 1, 4, 2, 160, True)
-    # DeoxysBC384_13r.ib_model()
+    ''' 13-r Deoxys-BC-384 '''
+    DeoxysBC384_13r = IB_DandJ(384, 2, 4, 1, 4, 2, 160, True)
+    DeoxysBC384_13r.ib_model()
 
-    # ''' 14-r Deoxys-BC-384 '''
-    # DeoxysBC384 = IB_DandJ(384, 2, 4, 1, 4, 3, 48, True)
-    # DeoxysBC384.ib_model()
+    ''' 14-r Deoxys-BC-384 '''
+    DeoxysBC384 = IB_DandJ(384, 2, 4, 1, 4, 3, 48, True)
+    DeoxysBC384.ib_model()
 
-    # ''' ----------------------------------------------------- '''
+    ''' ----------------------------------------------------- '''
 
-    # ''' 10-r Joltik-BC-128 '''
-    # Joltik128_10r = IB_DandJ(128, 1, 3, 1, 3, 2, 64, True)
-    # Joltik128_10r.ib_model()
+    ''' 10-r Joltik-BC-128 '''
+    Joltik128_10r = IB_DandJ(128, 1, 3, 1, 3, 2, 64, True)
+    Joltik128_10r.ib_model()
 
-    # ''' 11-r Joltik-BC-128 '''
-    # Joltik128_11r = IB_DandJ(128, 2, 3, 1, 3, 2, 16, False)
-    # Joltik128_11r.ib_model()
+    ''' 11-r Joltik-BC-128 '''
+    Joltik128_11r = IB_DandJ(128, 2, 3, 1, 3, 2, 16, False)
+    Joltik128_11r.ib_model()
 
-    # ''' 13-r Joltik-BC-192 '''
-    # Joltik192_13r = IB_DandJ(192, 2, 4, 1, 4, 2, 86, False)
-    # Joltik192_13r.ib_model()
+    ''' 13-r Joltik-BC-192 '''
+    Joltik192_13r = IB_DandJ(192, 2, 4, 1, 4, 2, 86, False)
+    Joltik192_13r.ib_model()
 
-    # ''' 14-r Joltik-BC-192 '''
-    # Joltik192_14r = IB_DandJ(192, 2, 4, 1, 4, 3, 24 , True)
-    # Joltik192_14r.ib_model()
-
+    ''' 14-r Joltik-BC-192 '''
+    Joltik192_14r = IB_DandJ(192, 2, 4, 1, 4, 3, 24 , True)
+    Joltik192_14r.ib_model()
