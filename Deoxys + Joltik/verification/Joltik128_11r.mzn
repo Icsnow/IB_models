@@ -79,7 +79,7 @@ array[0..15] of var 0..15: Nd = array1d(0..15, [0,13,9,4,1,12,8,5,2,15,11,6,3,14
 array[0..15] of var 0..15: hperm = array1d(0..15, [1,6,11,12,5,10,15,0,9,14,3,4,13,2,7,8]);
 int: s = 2;
 
-int: tR = 11;
+int: tR = 11; % 轮数
 
 % ---------------------------------------------------
 
@@ -108,34 +108,33 @@ constraint forall(r in 0..tR, c in 0..15)(lstk[r,c] = XOR[ltk1[r,c],ltk2[r,c]]);
 
 % ====================== PATTERN =====================
 % --- ustk & lstk ---
-constraint forall(i in [0,5,10,15])(ustk[0,i] = 0 /\ utk1[0,i] = 0 /\ utk2[0,i] = 0);
-constraint forall(i in [1,2,3,4,6,7,8,9,11,12,13,14])(ustk[0,i] >= 1);
+constraint forall(i in [0,5,7,10,12,14,15])(ustk[0,i] = 0 /\ utk1[0,i] = 0 /\ utk2[0,i] = 0);
+constraint forall(i in [1,2,3,4,6,8,9,11,13])(ustk[0,i] >= 1);
 constraint forall(i in 0..15)(ustk[3,i] = 0);
 
-constraint forall(i in [0,1,2,3,4,5,6,7,8,9,10,13,14,15])(lstk[6,i] = 0 /\ ltk1[6,i] = 0 /\ ltk2[6,i] = 0);
-constraint forall(i in [11,12])(lstk[6,i] >= 1);
+constraint forall(i in [0,2,3,4,5,6,7,8,9,10,11,13,14,15])(lstk[6,i] = 0 /\ ltk1[6,i] = 0 /\ ltk2[6,i] = 0);
+constraint forall(i in [1,12])(lstk[6,i] >= 1);
 constraint forall(i in 0..15)(lstk[8,i] = 0);
 
 % --- dz in trail ---
-constraint _mc(0,0,dz,ustk); % _mc(round，column, dz，stk（u/l）)
-constraint forall(i in 1..15)(dz[0,i]=0);
+constraint _mc(0,3,dz,ustk); % _mc(round，column, dz，stk（u/l）)
+constraint forall(i in [0,1,2,3,4,5,6,7,8,9,10,11,12,15])(dz[0,i]=0);
 constraint _mc(1,0,dz,ustk);
 constraint _mc(1,1,dz,ustk);
-constraint _mc(1,2,dz,ustk);
 constraint _mc(1,3,dz,ustk);
-constraint forall(i in [0,1,4,7,10,11,13,14])(dz[1,i]=0);
-constraint _mc(5,2,dz,lstk); 
-constraint forall(i in [0,1,2,3,4,5,6,7,12,13,14,15])(dz[5,i] = 0);
-constraint forall(i in [8,9,10,11])(dz[5,i] >= 1);
+constraint forall(i in [1,3,4,6,8,9,10,11,12,14])(dz[1,i]=0);
+constraint _mc(5,0,dz,lstk); 
+constraint forall(i in 4..15)(dz[5,i] = 0);
+constraint forall(i in [0,1,2,3])(dz[5,i] >= 1);
 constraint _mc(6,0,dz,lstk);
-constraint forall(i in [2,4,5,6,7,8,9,10,11,12,13,14,15])(dz[6,i] = 0);
+constraint forall(i in [0,4,5,6,7,8,9,10,11,12,13,14,15])(dz[6,i] = 0);
 
 % eqSTK
-constraint _mc(9,0,dz,lstk);
 constraint _mc(9,1,dz,lstk);
-constraint forall(i in [8,9,10,11,12,13,14,15])(dz[9,i] = 0);
+constraint _mc(9,2,dz,lstk);
+constraint forall(i in [0,1,2,3,12,13,14,15])(dz[9,i] = 0);
 constraint forall(r in [2,3,4,7,8,10], i in 0..15)(dz[r,i] = 0);
-constraint dz[5,8] in [iBCT[ustk[5,8], i] | i in 1..15];
+constraint dz[5,2] in [iBCT[ustk[5,10], i] | i in 1..15];
 
 
 %   Mix    |tdz_c|        stk_c

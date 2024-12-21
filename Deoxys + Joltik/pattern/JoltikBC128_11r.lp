@@ -4824,14 +4824,14 @@ Subject To
    - 4 lFrMC[9,8] - 4 lFrMC[9,9] - 4 lFrMC[9,10] - 4 lFrMC[9,11]
    - 4 lFrMC[9,12] - 4 lFrMC[9,13] - 4 lFrMC[9,14] - 4 lFrMC[9,15] + cf'
    = 0
- R4490: Dc = 65.75
- R4491: - 2 cb - 2 cf + Qc = 3.5
+ R4490: Dc = 65.25
+ R4491: - 2 cb - 2 cf + Qc = 2.5
  R4492: - Dc + T0 = 2
  R4493: - mb' - mf' - Dc + T1 = 2
  R4494: - rf - mb' - mf' + cf' - 2 Dc + T2 = -63
  R4495: - mb' - mf' + 2 cb' + 2 cf' - Qc + T31 = 0
- R4496: - mb - mf + T32 - epsilon = 3.5
- R4497: T4 = 112
+ R4496: - mb - mf + T32 - epsilon = 2.5
+ R4497: T4 = 120
  R4498: - T0 + Tc >= 0
  R4499: - T1 + Tc >= 0
  R4500: - T2 + Tc >= 0
