@@ -1,8 +1,3 @@
-# Time: 2024-12-10
-# Author: Yincen CHEN
-
-# eg: Attack on ForkSKINNY-128-256
-
 import gurobipy as gp
 from gurobipy import GRB
 import math

@@ -1,6 +1,3 @@
-# Time: 2024-11-21
-# Author: Yincen CHEN
-
 import gurobipy as gp
 from gurobipy import GRB
 import math

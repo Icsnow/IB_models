@@ -1,5 +1,3 @@
-% Author: Yincen CHEN
-% Date: 2025.1.1
 % TEST case: AC22-Mind the TWEAKEY Schedule: Cryptanalysis on SKINNYe-64-256
 
 array[1..15, 1..15] of var -1..15: iBCT = array2d(1..15, 1..15,
