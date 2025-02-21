@@ -795,7 +795,7 @@ class IB_DandJ:
     self.model.addConstr(Mc >= Dc + 2)
     self.model.addConstr(Mc >= T2 - (mbp + mfp))
     self.model.addConstr(Mc >= Qc - 2*cbp - 2*cfp)
-    self.model.addConstr(Mc >= mb + mf)
+    self.model.addConstr(Mc >= mb + mf - mbp - mfp)
 
     '''
     Complexity for related key
