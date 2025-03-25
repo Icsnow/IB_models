@@ -4174,7 +4174,7 @@ Subject To
  R3886: - rb - mb' - mf' + cb' - Dc + T2 = 1
  R3887: - mb' - mf' + 2 cb' + 2 cf' - Qc + T31 = 0
  R3888: - mb - mf + T32 - epsilon = 6.2
- R3889: T4 = 150
+ R3889: T4 = 152
  R3890: - T0 + Tc >= 0
  R3891: - T1 + Tc >= 0
  R3892: - T2 + Tc >= 0

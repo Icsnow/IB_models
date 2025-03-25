@@ -870,9 +870,9 @@ if __name__ == '__main__':
     
     # IB_Deoxys(key_size, round_Eb, round_Eu, round_Em, round_El, round_Ef, setX, pgP)
 
-    # ''' 10-r Deoxys-BC-256 '''
-    # DeoxysBC256_10r = IB_DandJ(256, 1, 3, 1, 3, 2, 106, True)
-    # DeoxysBC256_10r.ib_model()
+    ''' 10-r Deoxys-BC-256 '''
+    DeoxysBC256_10r = IB_DandJ(256, 1, 3, 1, 3, 2, 104, True)
+    DeoxysBC256_10r.ib_model()
 
     # ''' 11-r Deoxys-BC-256 '''
     # DeoxysBC256_11r = IB_DandJ(256, 2, 3, 1, 3, 2, 16, False) # adaptive adjustment to x=20 in this attack
@@ -892,9 +892,9 @@ if __name__ == '__main__':
     # Joltik128_10r = IB_DandJ(128, 1, 3, 1, 3, 2, 64, True)
     # Joltik128_10r.ib_model()
 
-    ''' 11-r Joltik-BC-128 '''
-    Joltik128_11r = IB_DandJ(128, 2, 3, 1, 3, 2, 8, False)
-    Joltik128_11r.ib_model()
+    # ''' 11-r Joltik-BC-128 '''
+    # Joltik128_11r = IB_DandJ(128, 2, 3, 1, 3, 2, 8, False)
+    # Joltik128_11r.ib_model()
 
     # ''' 13-r Joltik-BC-192 '''
     # Joltik192_13r = IB_DandJ(192, 2, 4, 1, 4, 2, 86, False)
