@@ -4167,14 +4167,14 @@ Subject To
    - 4 lFrMC[8,8] - 4 lFrMC[8,9] - 4 lFrMC[8,10] - 4 lFrMC[8,11]
    - 4 lFrMC[8,12] - 4 lFrMC[8,13] - 4 lFrMC[8,14] - 4 lFrMC[8,15] + cf'
    = 0
- R3882: Dc = 66.75
- R3883: - 2 cb - 2 cf + Qc = 5.5
+ R3882: Dc = 66.6
+ R3883: - 2 cb - 2 cf + Qc = 5.2
  R3884: - Dc + T0 = 2
  R3885: - mb' - mf' - Dc + T1 = 2
  R3886: - rb - mb' - mf' + cb' - Dc + T2 = 1
  R3887: - mb' - mf' + 2 cb' + 2 cf' - Qc + T31 = 0
- R3888: - mb - mf + T32 - epsilon = 5.5
- R3889: T4 = 64
+ R3888: - mb - mf + T32 - epsilon = 5.2
+ R3889: T4 = 76
  R3890: - T0 + Tc >= 0
  R3891: - T1 + Tc >= 0
  R3892: - T2 + Tc >= 0
