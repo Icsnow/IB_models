@@ -6,9 +6,9 @@
 
 $$
 \text{Upper:}\ \ \ 
-\mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longrightarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longrightarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longrightarrow}\  \mathrm{X} \\
+\mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longrightarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longrightarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longrightarrow}\  \mathrm{X}\\
 \text{Lower:}\ \ \ 
-\mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longleftarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longleftarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longleftarrow}\  \mathrm{X} \\
+\mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longleftarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longleftarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longleftarrow}\  \mathrm{X}\\
 $$
 
 **There are four differential trails (two upper, two lower) are allowed not the same as each other.**
