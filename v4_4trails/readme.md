@@ -121,8 +121,12 @@ The following ccontradiction $(uX_0,uX_1,lY_0,lY_1)$  indicates Impossible BCT.
 0,1,1,1, 1,0,1,1, 1,1,0,1, 1,1,1,0,
 1,1,1,1,
 ```
-
-
+correction:
+```
+0,1,0,1, 1,0,0,1, 0,1,1,0, 1,0,1,0,
+0,1,1,1, 1,0,1,1, 1,1,0,1, 1,1,1,0,
+1,1,1,1
+```
 
 ## Solve
 
