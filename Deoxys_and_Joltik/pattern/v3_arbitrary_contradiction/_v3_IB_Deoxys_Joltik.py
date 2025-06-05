@@ -548,7 +548,7 @@ class IB_DandJ:
         # T2CanA: Active bytes in one column, before MC
         self.model.addConstr(lT2CanA[r,c] == lDZ[r,4*c+0] + lDZ[r,4*c+1] + lDZ[r,4*c+2] + lDZ[r,4*c+3], name = 'lType2A')
         # T2CanB: Inactive bytes in one column, after MC
-        self.model.addConstr(lT2CanB[r,c] == 4*lAC[r,c] - lDW[r,4*c+0] - lDW[r,4*c+1] - lDW[r,4*c+2] - lDW[r,4*c+3], name = 'lType1B')
+        self.model.addConstr(lT2CanB[r,c] == 4*lAC[r,c] - lDW[r,4*c+0] - lDW[r,4*c+1] - lDW[r,4*c+2] - lDW[r,4*c+3], name = 'lType2B')
         # T2CanC: Cancellation appears in AK, in the next round
         self.model.addConstr(lT2CanC[r+1,c] == lcan[r+1,4*c+0] + lcan[r+1,4*c+1] + lcan[r+1,4*c+2] + lcan[r+1,4*c+3], name = 'lType2C')
 
