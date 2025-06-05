@@ -145,3 +145,5 @@ minizinc --solver Gurobi -p 4 .\IB_cp_Deoxys-Joltik.mzn -D "rEb=1; rDis=8; rEf=2
 Consider the calculation of $\epsilon$, there is **no better attack** than previous versions.
 
 The detail is list in file "res_IBDJ_1_7_3_24.txt"...
+
+For any issues and corrections, contact iscnow98 at gmail.
