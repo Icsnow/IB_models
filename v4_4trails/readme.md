@@ -7,7 +7,9 @@
 $$
 \text{Upper:}\ \ \ 
 \mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longrightarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longrightarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longrightarrow}\  \mathrm{X}\\
+$$
 
+$$
 \text{Lower:}\ \ \ 
 \mathrm{X}\  \stackrel{\mathcal{SR\circ SC}}{\longleftarrow}\  \mathrm{Z}\  \stackrel{\mathcal{MC}}{\longleftarrow}\  \mathrm{W}\  \stackrel{\mathcal{AK}}{\longleftarrow}\  \mathrm{X}\\
 $$
