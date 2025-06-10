@@ -33,11 +33,13 @@ Example:
 ## Discussion about multi-objective optimization
 Thanks to the comments of the reviewer, we discuss the comparison between "Linear weighted multi-objectives" and "Stage multi-objectives" in the following context.
 
-**Linear weighted multi-objectives** are an approximation of a Pareto frontier; that is, the optimization of one target will affect the optimization of all other targets, which may cause other goals to be non-optimized (although their weight is greater;
+* **Linear weighted multi-objectives** are an approximation of a Pareto frontier; that is, the optimization of one target will affect the optimization of all other targets, which may cause other goals to be non-optimized (although their weight is greater;
 
-$\alpha * Tc + \beta * Dc + \gamma * Mc,$ where $\alpha + \beta + \gamma = 1$
+$$
+\alpha * Tc + \beta * Dc + \gamma * Mc, \text{ where } \alpha + \beta + \gamma = 1
+$$
 
-**Stage multi-objective optimization** in MILP (which we implement using the Python interface) will optimize other parts based on the already optimized maximum weighted target. The optimal value of the target with the maximum weight is fixed when optimizing other targets.
+* **Stage multi-objective optimization** in MILP (which we implement using the Python interface) will optimize other parts based on the already optimized maximum weighted target. The optimal value of the target with the maximum weight is fixed when optimizing other targets.
 
 ```
 ModelSense = GRB.MINIMIZE
