@@ -1,4 +1,4 @@
-# The MILP/CP code for the paper "A Holistic Framework for Impossible Boomerang Attacks."
+# The MILP/CP models for the paper "A Holistic Framework for Impossible Boomerang Attacks"
 
 ## How to use this tool
 
