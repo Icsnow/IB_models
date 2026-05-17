@@ -49,3 +49,10 @@ setObjectiveN(Mc, index = 2, priority = 1)
 ```
 
 In our model, time complexity is related to the maximum weight, and we want to maintain the optimal time complexity while optimizing data and memory complexity.
+
+
+Code for paper [A Holistic Framework for Impossible Boomerang Attacks](https://cic.iacr.org/p/2/2/18)
+
+*Author: Yincen Chen, Qinggan Fu, Ning Zhao, Jiahao Zhao, Ling Song, Qianqian Yang
+
+*Affiliation: 暨南大学网络空间安全学院（College of Cyber Security, Jinan University）
